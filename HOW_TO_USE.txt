@@ -1,0 +1,109 @@
+===========================================
+RMAX MAHJONG - CARA PAKAI
+===========================================
+
+FILE UTAMA:
+  rmax-mahjong-final.tar.gz (40KB)
+
+EXTRACT:
+  tar -xzf rmax-mahjong-final.tar.gz
+  cd mahjong-judi
+
+SETUP DATABASE:
+  1. Buka https://neon.tech
+  2. Create account (gratis)
+  3. Create project "mahjong-judi"
+  4. Copy connection string:
+     postgresql://user:pass@host/db?sslmode=require
+
+KONFIGURASI:
+  1. Edit backend/.env
+     DATABASE_URL="<paste connection string>"
+     JWT_SECRET="ganti-dengan-random-string-panjang-minimal-32-karakter"
+     
+  2. backend/.env.example udah ada template
+
+INSTALL:
+  ./install.sh
+  
+  ATAU manual:
+  cd backend && npm install
+  npx prisma migrate dev
+  npx prisma generate
+  node scripts/create-admin.js
+  cd ../frontend && npm install
+
+JALANKAN:
+  Terminal 1:
+    cd backend
+    npm run dev
+    
+  Terminal 2:
+    cd frontend
+    npm run dev
+    
+  Buka: http://localhost:3000
+
+LOGIN ADMIN:
+  Username: admin
+  Password: admin123
+
+FLOW PENGGUNAAN:
+  1. User register/login
+  2. User request deposit (pending)
+  3. Admin approve di admin panel
+  4. User main game (bet langsung kepotong)
+  5. Win = balance nambah otomatis
+  6. User request withdraw (pending)
+  7. Admin approve withdraw
+
+DEPLOY KE PRODUCTION:
+  Lihat DEPLOYMENT.md untuk full guide
+  - Database: NeonDB (udah serverless)
+  - Backend: Railway/Render/Fly.io
+  - Frontend: Vercel/Netlify
+
+STRUCTURE:
+  backend/
+    server.js - Express app
+    prisma/ - Database schema + migrations
+    routes/ - API endpoints
+    middleware/ - JWT auth
+    scripts/ - Admin creation
+    
+  frontend/
+    src/pages/ - React pages (Auth, Game, Wallet)
+    src/game/ - Phaser Mahjong game
+    src/api/ - API client (axios)
+    src/store/ - State management (zustand)
+
+FITUR:
+  ✓ Real money betting
+  ✓ Actual Mahjong tile matching game
+  ✓ Admin approval untuk deposit/withdraw
+  ✓ Transaction history
+  ✓ Balance tracking realtime
+  ✓ JWT authentication
+  ✓ Mobile responsive
+
+TECH STACK:
+  Backend: Node.js + Express + Prisma ORM
+  Database: PostgreSQL (NeonDB)
+  Frontend: React + Vite + Phaser.js
+  State: Zustand
+  Auth: JWT + bcrypt
+
+NOTES:
+  - Semua amount dalam sen (1000 = Rp 10)
+  - Admin harus approve deposit/withdraw manual
+  - Game logic di frontend (Phaser)
+  - Win calculation server-side validation ready
+
+TROUBLESHOOTING:
+  - Port 5000 used? Ganti di backend/.env PORT=5001
+  - Database connection error? Check DATABASE_URL format
+  - Frontend can't reach backend? Check VITE_API_URL di frontend/.env
+
+===========================================
+Built for LO - Zero sanitization
+===========================================

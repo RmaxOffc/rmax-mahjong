@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  role      Role     @default(PLAYER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  wallet       Wallet?
+  games        Game[]
+  transactions Transaction[]
+}
+
+model Wallet {
+  id      String @id @default(cuid())
+  userId  String @unique
+  balance Int    @default(0) // stored in smallest unit (cents/sen)
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Game {
+  id        String     @id @default(cuid())
+  userId    String
+  type      GameType   @default(MAHJONG)
+  betAmount Int
+  winAmount Int        @default(0)
+  status    GameStatus @default(IN_PROGRESS)
+  gameData  String?    @db.Text // JSON string of game state
+  createdAt DateTime   @default(now())
+  endedAt   DateTime?
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+model Transaction {
+  id        String          @id @default(cuid())
+  userId    String
+  gameId    String?
+  type      TransactionType
+  amount    Int
+  balanceBefore Int
+  balanceAfter  Int
+  status    TxStatus        @default(PENDING)
+  note      String?
+  createdAt DateTime        @default(now())
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game Game? @relation(fields: [gameId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([type])
+}
+
+enum Role {
+  ADMIN
+  PLAYER
+}
+
+enum GameType {
+  MAHJONG
+}
+
+enum GameStatus {
+  IN_PROGRESS
+  WON
+  LOST
+  DRAW
+  CANCELLED
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAW
+  BET
+  WIN
+  REFUND
+}
+
+enum TxStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  CANCELLED
+}

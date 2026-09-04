@@ -1,0 +1,174 @@
+.game-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.header-left h2 {
+  font-size: 28px;
+  color: #ffd700;
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+}
+
+.username {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.header-right {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.balance {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 20px;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.balance .label {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.balance .amount {
+  color: #4caf50;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.btn-wallet, .btn-logout {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-wallet {
+  background: #2196f3;
+  color: #fff;
+}
+
+.btn-logout {
+  background: #f44336;
+  color: #fff;
+}
+
+.bet-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.bet-modal {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  padding: 40px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.bet-modal h3 {
+  font-size: 28px;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #ffd700;
+}
+
+.bet-input label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.bet-input input {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.bet-presets {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.bet-presets button {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.bet-presets button:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.btn-start {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #d4af37 0%, #f4e285 100%);
+  color: #1e3c72;
+  border: none;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-start:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.btn-start:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.balance-info {
+  text-align: center;
+  margin-top: 12px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.phaser-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
